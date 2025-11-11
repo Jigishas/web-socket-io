@@ -1,6 +1,96 @@
 @import "tailwindcss";
 
-/* App-specific Styles */
+/* App-Specific Styles */
+
+/* Background Styles */
+.app-background {
+  @apply min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900;
+  background-attachment: fixed;
+}
+
+.app-container {
+  @apply max-w-7xl mx-auto p-6;
+}
+
+/* Header Styles */
+header {
+  @apply bg-white/10 backdrop-blur-md rounded-2xl p-6 mb-8 shadow-2xl border border-white/20;
+}
+
+/* Chat Container Styles */
+.chat-container {
+  @apply bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20;
+}
+
+/* Message Styles */
+.message-container {
+  @apply mb-4 p-4 rounded-xl backdrop-blur-sm border border-white/10;
+}
+
+.message-container.sent {
+  @apply bg-blue-500/20 ml-12;
+}
+
+.message-container.received {
+  @apply bg-gray-500/20 mr-12;
+}
+
+/* Input Styles */
+.message-input {
+  @apply w-full p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/50;
+}
+
+/* Button Styles */
+.send-button {
+  @apply bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200;
+}
+
+/* Online Users Styles */
+.online-users {
+  @apply bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg border border-white/20;
+}
+
+.online-user {
+  @apply flex items-center space-x-2 p-2 rounded-lg hover:bg-white/10 transition-colors;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  @apply flex items-center space-x-2 p-3 bg-yellow-500/20 rounded-xl border border-yellow-500/30;
+}
+
+/* Debug Component Styles */
+.debug-component {
+  @apply bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20;
+}
+
+/* Auth Form Styles */
+.auth-form {
+  @apply bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-white/20 max-w-md mx-auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-container {
+    @apply p-4;
+  }
+
+  header {
+    @apply p-4 mb-4;
+  }
+
+  .chat-container {
+    @apply p-4;
+  }
+
+  .message-container.sent {
+    @apply ml-4;
+  }
+
+  .message-container.received {
+    @apply mr-4;
+  }
+}
 
 /* Enhanced Background */
 .app-background {
