@@ -1,1 +1,87 @@
 @import "tailwindcss";
+
+/* App-Specific Styles */
+
+/* Enhanced App Background */
+.app-background {
+  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #fef3c7 100%);
+  min-height: 100vh;
+}
+
+/* Chat Container Enhancements */
+.chat-container {
+  @apply glass rounded-3xl shadow-2xl border border-white/20;
+}
+
+/* Header Styles */
+.chat-header {
+  @apply gradient-bg text-white rounded-t-3xl p-6;
+}
+
+/* Online Users Panel */
+.online-users-panel {
+  @apply glass rounded-l-3xl border-r border-white/20;
+}
+
+/* Message Area */
+.message-area {
+  @apply bg-white/50 rounded-r-3xl border-l border-white/20;
+}
+
+/* Message Bubbles */
+.sent-message {
+  @apply message-bubble sent bg-gradient-to-r from-blue-400 to-blue-600 text-white ml-auto;
+}
+
+.received-message {
+  @apply message-bubble received bg-white text-gray-800;
+}
+
+.system-message {
+  @apply bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-center rounded-full px-4 py-2 shadow-lg;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  @apply flex items-center space-x-1 p-3 bg-gray-100 rounded-lg;
+}
+
+/* Input Area */
+.input-area {
+  @apply glass rounded-b-3xl p-4 border-t border-white/20;
+}
+
+/* Auth Form Enhancements */
+.auth-form {
+  @apply glass rounded-3xl shadow-2xl border border-white/20 p-8;
+}
+
+/* Button Enhancements */
+.btn-send {
+  @apply btn-primary hover:from-purple-600 hover:to-pink-600;
+}
+
+.btn-logout {
+  @apply btn-secondary hover:from-red-500 hover:to-red-600;
+}
+
+/* Debug Chat Styles */
+.debug-chat {
+  @apply glass rounded-3xl shadow-2xl border border-white/20 p-6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .chat-container {
+    @apply flex-col rounded-3xl;
+  }
+
+  .online-users-panel {
+    @apply rounded-t-3xl rounded-b-none border-r-0 border-b border-white/20;
+  }
+
+  .message-area {
+    @apply rounded-b-3xl rounded-t-none border-l-0 border-t border-white/20;
+  }
+}
+a@import "tailwindcss";
