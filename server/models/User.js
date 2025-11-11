@@ -126,7 +126,6 @@ userSchema.methods.resetLoginAttempts = function() {
 
 // Index for username lookups
 userSchema.index({ username: 1 });
-userSchema.index({ email: 1 }, { sparse: true });
 
 const User = mongoose.model('User', userSchema);
 
