@@ -1,5 +1,4 @@
 import React from 'react';
-import socket from './socket/socket';
 //import ChatComponent from './Hooks/hooks';
 import DebugChatComponent from './Pages/fetch';
 import Chat from './components/Chat';
