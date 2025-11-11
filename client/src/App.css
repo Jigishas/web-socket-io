@@ -17,6 +17,7 @@
   right: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 1;
 }
@@ -30,6 +31,7 @@
 .chat-container {
   @apply glass rounded-3xl shadow-2xl border border-white/20;
   background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -61,6 +63,7 @@
   padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 1rem;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
