@@ -85,6 +85,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { username, password } = req.body;
+        const clientIP = req.ip || req.connection.remoteAddress;
 
         // Validate input
         if (!username || !password) {
@@ -97,11 +98,23 @@ const login = async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
+        // Check if account is locked
+        if (user.isLocked) {
+            return res.status(423).json({
+                error: 'Account is temporarily locked due to too many failed login attempts'
+            });
+        }
+
         // Verify password
         const isValidPassword = await user.comparePassword(password);
         if (!isValidPassword) {
+            // Increment login attempts
+            await user.incLoginAttempts();
             return res.status(401).json({ error: 'Invalid credentials' });
         }
+
+        // Reset login attempts on successful login
+        await user.resetLoginAttempts();
 
         // Generate JWT token
         const token = jwt.sign(
@@ -120,6 +133,11 @@ const login = async (req, res) => {
         });
     } catch (error) {
         console.error('Login error:', error);
+
+        if (error.message.includes('locked')) {
+            return res.status(423).json({ error: error.message });
+        }
+
         res.status(500).json({ error: 'Internal server error' });
     }
 };
