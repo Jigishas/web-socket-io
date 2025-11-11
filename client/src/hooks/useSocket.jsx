@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
-import { useAuth } from '../context/AuthContext';
+import { useClerkAuth } from './useClerkAuth';
 
 export const useSocket = (serverUrl) => {
     const [socket, setSocket] = useState(null);
     const [isConnected, setIsConnected] = useState(false);
-    const { token, user } = useAuth();
+    const { user, getToken } = useClerkAuth();
     const socketRef = useRef();
 
     useEffect(() => {

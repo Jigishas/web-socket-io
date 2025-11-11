@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSocket } from '../hooks/useSocket';
-import { useAuth } from '../context/AuthContext';
+import { useClerkAuth } from '../hooks/useClerkAuth';
 
 const Chat = () => {
     const [messages, setMessages] = useState([]);
@@ -10,12 +10,13 @@ const Chat = () => {
     const [isLoading, setIsLoading] = useState(true);
     
     const { socket, isConnected } = useSocket('http://localhost:3000');
-    const { user, token, logout } = useAuth();
+    const { user, getToken } = useClerkAuth();
     const messagesEndRef = useRef(null);
 
     // Fetch chat history
     const fetchMessages = async () => {
         try {
+            const token = await getToken();
             const response = await fetch('http://localhost:3000/api/messages', {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -37,10 +38,10 @@ const Chat = () => {
 
     // Fetch messages when component mounts
     useEffect(() => {
-        if (token) {
+        if (user) {
             fetchMessages();
         }
-    }, [token]);
+    }, [user]);
 
     // Scroll to bottom when new messages arrive
     const scrollToBottom = () => {
@@ -144,12 +145,9 @@ const Chat = () => {
             <div className="flex justify-between items-center mb-6 p-4 bg-gray-50 rounded-lg">
                 <div>
                     <h2 className="text-2xl font-bold text-gray-800">Chat Room</h2>
-                    <div className="text-gray-600">Welcome, <strong className="text-gray-800">{user.username}</strong>!</div>
+                    <div className="text-gray-600">Welcome, <strong className="text-gray-800">{user.firstName || user.username}</strong>!</div>
                     <div className="text-sm text-gray-500">Status: {isConnected ? '🟢 Connected' : '🔴 Disconnected'}</div>
                 </div>
-                <button onClick={logout} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors">
-                    Logout
-                </button>
             </div>
 
             <div className="flex gap-6">
@@ -158,9 +156,9 @@ const Chat = () => {
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Online Users ({onlineUsers.length})</h3>
                     <div className="bg-gray-50 p-3 rounded-lg max-h-96 overflow-y-auto">
                         {onlineUsers.map(onlineUser => (
-                            <div key={onlineUser.userId} className={`p-2 my-1 rounded ${onlineUser.userId === user.userId ? 'bg-blue-100' : ''}`}>
+                            <div key={onlineUser.userId} className={`p-2 my-1 rounded ${onlineUser.userId === user.id ? 'bg-blue-100' : ''}`}>
                                 {onlineUser.username}
-                                {onlineUser.userId === user.userId && ' (You)'}
+                                {onlineUser.userId === user.id && ' (You)'}
                             </div>
                         ))}
                     </div>
@@ -191,7 +189,7 @@ const Chat = () => {
                                 <div key={msg._id || index} className={`mb-3 p-3 rounded-lg ${
                                     msg.type === 'system'
                                         ? 'bg-yellow-50 border-l-4 border-yellow-400 text-center text-yellow-800'
-                                        : msg.userId === user.userId
+                                        : msg.userId === user.id
                                             ? 'bg-blue-50 border-l-4 border-blue-400'
                                             : 'bg-gray-50 border-l-4 border-gray-400'
                                 }`}>

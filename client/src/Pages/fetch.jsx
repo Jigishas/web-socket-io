@@ -1,11 +1,13 @@
 // Enhanced React component with logging
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import { useClerkAuth } from '../hooks/useClerkAuth';
 
 const DebugChatComponent = () => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
+    const { user } = useClerkAuth();
 
     useEffect(() => {
         const newSocket = io('http://localhost:3000', {
@@ -57,7 +59,7 @@ const DebugChatComponent = () => {
         if (messageInput.trim() && socket) {
             const messageData = {
                 id: Date.now(),
-                username: 'User',
+                username: user?.firstName || user?.username || 'User',
                 text: messageInput,
                 timestamp: new Date().toLocaleTimeString(),
                 socketId: socket.id
