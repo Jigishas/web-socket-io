@@ -1,6 +1,81 @@
 @import "tailwindcss";
 
-/* App-Specific Styles */
+/* App-specific Styles */
+
+/* Background Enhancements */
+.app-background {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  position: relative;
+}
+
+.app-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.05"/><circle cx="10" cy="50" r="0.5" fill="%23ffffff" opacity="0.05"/><circle cx="90" cy="30" r="0.5" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  pointer-events: none;
+}
+
+/* Container Styles */
+.app-container {
+  @apply relative z-10 flex flex-col items-center justify-center p-4 min-h-screen;
+}
+
+.app-header {
+  @apply text-5xl font-extrabold text-white mb-8 text-center drop-shadow-lg;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.app-content {
+  @apply w-full max-w-7xl space-y-8;
+}
+
+/* Component Enhancements */
+.chat-container {
+  @apply glass rounded-3xl p-6 shadow-2xl border border-white/20;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.auth-form {
+  @apply glass rounded-2xl p-6 shadow-xl border border-white/20;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+.debug-chat {
+  @apply glass rounded-2xl p-6 shadow-xl border border-white/20;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-header {
+    @apply text-3xl;
+  }
+
+  .app-content {
+    @apply space-y-6;
+  }
+
+  .chat-container,
+  .auth-form,
+  .debug-chat {
+    @apply p-4;
+  }
+}
+
+/* Dark Mode Support (if needed in future) */
+@media (prefers-color-scheme: dark) {
+  .app-background {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  }
+}
 
 /* Enhanced Background */
 .app-background {
