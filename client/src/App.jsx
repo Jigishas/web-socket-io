@@ -8,11 +8,13 @@ import { AuthProvider } from './context/AuthContext';
 function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-        <h1 className="text-4xl font-bold text-gray-800 mb-8">Real-Time Communication App</h1>
-        <div className="w-full max-w-6xl space-y-8">
-          <Chat />
-          <DebugChatComponent />
+      <div className="app-background flex flex-col items-center justify-center p-4">
+        <div className="app-container">
+          <h1 className="text-4xl font-bold text-white mb-8 drop-shadow-lg">Real-Time Communication App</h1>
+          <div className="w-full max-w-6xl space-y-8">
+            <Chat />
+            <DebugChatComponent />
+          </div>
         </div>
       </div>
     </AuthProvider>
