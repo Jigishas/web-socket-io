@@ -6,6 +6,7 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const connectDB = require('./config/db');
 // Load environment variables
 dotenv.config();
 
@@ -20,6 +21,7 @@ const io = new Server(server, {
   },
 });
 
+connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
