@@ -16,7 +16,7 @@ const io = socketIo(server, {
 app.use(express.json());
 
 // Secret key for JWT
-const JWT_SECRET = 'your-secret-key-here';
+const JWT_SECRET = process.env.JWT_SECRET;
 const users = new Map(); // In production, use a database
 
 // Authentication middleware for Socket.io
