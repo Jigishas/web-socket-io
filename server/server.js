@@ -111,6 +111,9 @@ io.on('connection', (socket) => {
 });
 
 // API routes
+app.use('/api/messages', require('./routes/messages'));
+app.use('/api/auth', require('./routes/auth'));
+
 app.get('/api/messages', (req, res) => {
   res.json(messages);
 });
