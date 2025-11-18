@@ -1,6 +1,35 @@
 const { socketAuthMiddleware } = require('../middleware/auth');
 const { saveMessage } = require('../controllers/messages');
 
+// Rate limiting for socket events
+const rateLimits = new Map();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const RATE_LIMITS = {
+    chat_message: { max: 10, window: RATE_LIMIT_WINDOW },
+    private_message: { max: 20, window: RATE_LIMIT_WINDOW },
+    typing_start: { max: 30, window: RATE_LIMIT_WINDOW },
+    connection: { max: 5, window: 5 * 60 * 1000 } // 5 connections per 5 minutes per IP
+};
+
+const checkRateLimit = (identifier, eventType) => {
+    const now = Date.now();
+    const key = `${identifier}:${eventType}`;
+    const limits = RATE_LIMITS[eventType];
+
+    if (!limits) return true; // No limit for this event
+
+    const attempts = rateLimits.get(key) || [];
+    const validAttempts = attempts.filter(time => now - time < limits.window);
+
+    if (validAttempts.length >= limits.max) {
+        return false;
+    }
+
+    validAttempts.push(now);
+    rateLimits.set(key, validAttempts);
+    return true;
+};
+
 class SocketHandler {
     constructor(io) {
         this.io = io;
