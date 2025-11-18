@@ -132,9 +132,9 @@ const login = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Login error:', error);
+        console.error('Login error:', error.message);
 
-        if (error.message.includes('locked')) {
+        if (error.message && error.message.includes('locked')) {
             return res.status(423).json({ error: error.message });
         }
 
