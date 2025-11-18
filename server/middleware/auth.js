@@ -117,7 +117,7 @@ const socketAuthMiddleware = async (socket, next) => {
         resetAuthAttempts(clientIP); // Reset on successful auth
         next();
     } catch (error) {
-        console.error('Socket auth error:', error);
+        console.error('Socket auth error:', error.message);
 
         if (error.name === 'JsonWebTokenError') {
             return next(new Error('Invalid token'));
