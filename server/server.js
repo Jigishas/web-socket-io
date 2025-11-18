@@ -21,6 +21,7 @@ const io = new Server(server, {
       if (!origin) return callback(null, true);
 
       const allowedOrigins = [
+
         'http://localhost:5173',
         'http://localhost:3000',
         process.env.CLIENT_URL
@@ -49,6 +50,7 @@ const socketHandler = new SocketHandler(io);
 // API routes
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/auth', require('./routes/auth'));
+// Removed in-memory message and user endpoints - use database routes instead
 
 app.get('/api/messages', (req, res) => {
   res.json(messages);

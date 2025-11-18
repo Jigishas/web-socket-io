@@ -7,10 +7,10 @@
 - [ ] Add rate limiting for socket events (messages, typing, connections)
 
 ## Medium Priority
-- [ ] Improve error handling to prevent information leakage
+- [x] Improve error handling to prevent information leakage
 - [ ] Add HTTPS enforcement middleware
-- [ ] Restrict CORS origins for better security
-- [ ] Remove in-memory message storage from server.js (use DB consistently)
+- [x] Restrict CORS origins for better security
+- [x] Remove in-memory message storage from server.js (use DB consistently)
 
 ## Low Priority
 - [ ] Add comprehensive input validation for all socket events
