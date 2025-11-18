@@ -12,8 +12,13 @@ const validateMessage = (text) => {
     if (trimmedText.length > 1000) {
         return 'Message cannot exceed 1000 characters';
     }
-    // Basic XSS prevention - remove potentially dangerous tags
-    const sanitizedText = trimmedText.replace(/<[^>]*>/g, '');
+    // Enhanced XSS prevention - sanitize HTML and dangerous content
+    let sanitizedText = trimmedText
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
+        .replace(/<[^>]*>/g, '') // Remove all HTML tags
+        .replace(/javascript:/gi, '') // Remove javascript: protocols
+        .replace(/on\w+\s*=/gi, '') // Remove event handlers
+        .replace(/style\s*=\s*["'][^"']*["']/gi, ''); // Remove style attributes
     return { sanitizedText };
 };
 
