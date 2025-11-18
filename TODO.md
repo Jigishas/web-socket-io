@@ -1,7 +1,7 @@
 # Backend Security Fixes TODO
 
 ## High Priority
-- [ ] Update server.js to use authenticated SocketHandler instead of unauthenticated direct connections
+- [x] Update server.js to use authenticated SocketHandler instead of unauthenticated direct connections
 - [x] Enhance message input sanitization to prevent XSS attacks
 - [x] Fix private message recipient ID validation and type conversion
 - [ ] Add rate limiting for socket events (messages, typing, connections)
