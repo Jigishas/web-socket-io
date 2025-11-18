@@ -98,6 +98,12 @@ class SocketHandler {
             // Handle private messages
             socket.on('private message', async (data) => {
                 try {
+                    // Rate limiting check
+                    if (!checkRateLimit(socket.handshake.address, 'private_message')) {
+                        socket.emit('error', { message: 'Too many private messages. Please slow down.' });
+                        return;
+                    }
+
                     if (!data || !data.toUserId || !data.text) {
                         socket.emit('error', { message: 'Invalid private message data' });
                         return;
@@ -125,7 +131,7 @@ class SocketHandler {
                     // Send back to sender
                     socket.emit('private message', { ...messageData, isOwnMessage: true });
                 } catch (error) {
-                    console.error('Private message error:', error);
+                    console.error('Private message error:', error.message);
                     socket.emit('error', { message: 'Failed to send private message' });
                 }
             });
