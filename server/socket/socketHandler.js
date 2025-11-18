@@ -138,6 +138,11 @@ class SocketHandler {
 
             // Handle typing indicators
             socket.on('typing start', () => {
+                // Rate limiting check
+                if (!checkRateLimit(socket.handshake.address, 'typing_start')) {
+                    return; // Silently ignore excessive typing events
+                }
+
                 this.typingUsers.set(socket.id, socket.user.username);
                 socket.broadcast.emit('user typing', {
                     username: socket.user.username,
